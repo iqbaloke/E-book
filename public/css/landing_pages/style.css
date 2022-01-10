@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,800&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    line-height: 1.5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none!important;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.btn-1 {
+    background-color: #ffffff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    box-shadow: black;
+}
+
+.btn-1:focus {
+    box-shadow: blue;
+}
+
+.btn-1:hover {
+    color: #ffffff;
+    background-color: blue;
+}
+
+@keyframes spin_01 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.navbar {
+    background-color: #021B79;
+    padding: 10px 0;
+}
+
+.navbar .navbar-brand {
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.navbar .nav-item {
+    margin-left: 30px;
+}
+
+.navbar .nav-item .nav-link {
+    color: #ffffff;
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 5px 0;
+    position: relative;
+}
+
+.navbar .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ffffff;
+    transition: all 0.5 ease;
+    transform: scale(0);
+}
+
+.navbar .nav-item .dropdown-menu {
+    right: 0;
+    left: auto;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+.navbar .nav-item .dropdown-menu .dropdown-item {
+    font-size: 12px;
+    padding-top: 10px;
+}
+
+.navbar .nav-item .nav-link.active::before,
+.navbar .nav-item .nav-link:hover::before {
+    transform: scale(1);
+}
+
+.home {
+    min-height: 100vh;
+    padding-top: 100px;
+    background-image: linear-gradient( #021B79, #0575E6);
+}
+
+.home-text h1 {
+    font-size: 45px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 20px;
+}
+
+.home-dashboard {
+    min-height: 70vh;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-image: linear-gradient( #021B79, #0575E6);
+    padding-left: 30px;
+}
+
+.home-dashboard .img-profile {
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+}
+
+.home-dashboard .text-profile {
+    padding-left: 10px;
+}
+
+.home-dashboard .text-profile h1 {
+    padding-top: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.home-dashboard .text-profile p {
+    font-size: 12px;
+    font-weight: 200;
+    color: #a7a7a7;
+    margin-top: -5px;
+}
+
+.home-dashboard .text-description {
+    padding-top: 20px;
+    font-size: 14px;
+    font-weight: 200;
+    color: #ffffff;
+}
+
+.home-dashboard .border-sosmed {
+    padding-left: 10px;
+}
+
+.home-dashboard .border-sosmed a {
+    background-color: rgba(0, 0, 0, 0.555);
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.home-dashboard .border-sosmed a i {
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.home-dashboard .border-follow {
+    padding-left: 10px;
+}
+
+.home-dashboard .border-follow .border {
+    height: 100px;
+    width: 100px;
+    text-align: center;
+}
+
+.home-dashboard .border-follow .border h1 {
+    padding-top: 10px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.home-dashboard .border-follow .border p {
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+}
+
+.home-dashboard .border-follow a {
+    background-color: rgba(0, 0, 0, 0.555);
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.home-dashboard .border-follow a i {
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.border-icon {
+    margin: 50px 0;
+}
+
+.border-icon a {
+    background-color: rgba(0, 0, 0, 0.555);
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.border-icon a i {
+    font-size: 30px;
+    padding: 10px 20px 10px 20px;
+}
+
+.home-text p {
+    font-size: 18px;
+    line-height: 28px;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 300;
+}
+
+.home .home-btn {
+    margin-top: 30px;
+}
+
+.home-img img {
+    max-width: 450px;
+    width: 100%;
+}
+
+.home-img {
+    position: relative;
+}
+
+.home-img .circle {
+    position: absolute;
+    z-index: 1;
+    height: 400px;
+    width: 400px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.home-img .circle::before {
+    content: '';
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    left: 30px;
+    top: 30px;
+    transform-origin: 170px 170px;
+    animation: spin_01 10s linear infinite;
+}
+
+.body-content h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.body-content p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #000000;
+}
+
+
+/* body */
+
+.text-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: -10px;
+    color: #000000;
+}
+
+.text-price {
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: -10px;
+    color: #001aff;
+}
+
+.text-publish {
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: -10px;
+    color: #000000;
+}
+
+.text-category-tag {
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: -10px;
+    color: #ff0909;
+}
+
+.text-book-count {
+    padding-left: 20px;
+    font-size: 10px;
+    font-weight: 300;
+    margin-left: -10px;
+    color: #000000;
+}
+
+.text-author {
+    padding-left: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: -10px;
+    color: #000000;
+}
+
+.text-description {
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: -10px;
+    color: #000000;
+    text-align: justify;
+}
+
+.img-border-radius {
+    border-radius: 50%;
+}
+
+.card-hover:focus {
+    box-shadow: blue;
+}
+
+.card-hover:hover {
+    color: #ffffff;
+    background-color: rgb(57, 57, 255);
+    box-shadow: blue;
+    border-style: solid;
+}
+
+.card-hover:hover .text-title {
+    color: #ffffff
+}
+
+.card-hover:hover .text-publish {
+    color: #ffffff
+}
+
+.card-hover:hover .text-price {
+    color: #ffffff
+}
+
+.card-hover:hover .text-category-tag {
+    color: #ffffff
+}
