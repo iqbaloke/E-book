@@ -43,24 +43,46 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function book(){
+    public function book()
+    {
         return $this->hasMany(book::class);
     }
 
-    public function comment(){
+    public function comment()
+    {
         return $this->hasMany(comment::class);
     }
-    public function userdetail(){
+    public function userdetail()
+    {
         return $this->hasOne(userdetail::class);
     }
 
-    public function getTakeImageAttribute(){
+    public function getTakeImageAttribute()
+    {
         return "/storage/" . $this->userdetail->thumbnail;
     }
-    public function cart(){
+    public function cart()
+    {
         return $this->hasMany(cart::class);
     }
-    public function sosmed(){
+    public function sosmed()
+    {
         return $this->hasMany(sosmed::class);
+    }
+    public function income()
+    {
+        return $this->hasOne(income::class);
+    }
+    public function widraw()
+    {
+        return $this->hasMany(widraw::class);
+    }
+    public function order()
+    {
+        return $this->hasMany(order::class);
+    }
+    public function purchased()
+    {
+        return $this->hasMany(purchased::class);
     }
 }

@@ -93,7 +93,7 @@
     <hr class="mt-4">
     <div>
         <h5>the book you have bought</h5>
-        <p>you have 4 book buy</p>
+        <p>you have {{ $order->count() }} book buy</p>
     </div>
     <div class="row">
         @foreach (auth()->user()->cart as $cart)

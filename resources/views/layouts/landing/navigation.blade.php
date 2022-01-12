@@ -15,6 +15,10 @@
                     <a class="nav-link {{ Request()->is('category-all') ? 'active' : '' }}"
                         href="{{ route('categorylanding') }}">Catgeory</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request()->is('cart') ? 'active' : '' }}"
+                        href="{{ route('cartlanding') }}">cart</a>
+                </li>
                 @role('super admin|admin|writer')
                 <li class="nav-item">
                     <a class="nav-link {{ Request()->is('become-a-creator') ? 'active' : '' }}"

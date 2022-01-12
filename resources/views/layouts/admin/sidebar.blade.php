@@ -71,12 +71,34 @@
             <i class="fas fa-fw fa-folder"></i>
             <span>Transaction</span>
         </a>
-        <div id="collapsePagestransaction" class="collapse" aria-labelledby="headingPages"
+        <div id="collapsePagestransaction" class="collapse {{ Request()->is('dashboard-admin/transaction/success') ? 'show' : '' }} ||
+            {{ Request()->is('dashboard-admin/transaction/pending') ? 'show' : '' }} ||
+            {{ Request()->is('dashboard-admin/transaction/faild') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="login.html">success</a>
-                <a class="collapse-item" href="register.html">pending</a>
-                <a class="collapse-item" href="forgot-password.html">faild</a>
+                <a class="collapse-item {{ Request()->is('dashboard-admin/transaction/success') ? 'active' : '' }}"
+                    href="{{ route('transactionadminsuccess') }}">success</a>
+                <a class="collapse-item {{ Request()->is('dashboard-admin/transaction/pending') ? 'active' : '' }}"
+                    href="{{ route('transactionadminpending') }}">pending</a>
+                <a class="collapse-item {{ Request()->is('dashboard-admin/transaction/faild') ? 'active' : '' }}"
+                    href="{{ route('transactionadminfaild') }}">faild</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePageswidraw"
+            aria-expanded="true" aria-controls="collapsePageswidraw">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Widraw</span>
+        </a>
+        <div id="collapsePageswidraw" class="collapse {{ Request()->is('dashboard-admin/widraw/request') ? 'show' : '' }} ||
+            {{ Request()->is('dashboard-admin/widraw/success') ? 'show' : '' }}" aria-labelledby="headingPages"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request()->is('dashboard-admin/widraw/request') ? 'active' : '' }}"
+                    href="{{ route('widrawrequest') }}">Widraw Request</a>
+                <a class="collapse-item {{ Request()->is('dashboard-admin/widraw/success') ? 'active' : '' }}"
+                    href="{{ route('widrawsuccess') }}">Widraw Success</a>
             </div>
         </div>
     </li>

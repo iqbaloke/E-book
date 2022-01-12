@@ -10,13 +10,14 @@ class book extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'book_key','title', 'slug', 'price',
+        'book_key', 'title', 'slug', 'price',
         'thumbnail', 'approved', 'year', 'page',
         'payment', 'description', 'discon',
-        'category_id','tag_id','file_id', 'book_file','publish'
+        'category_id', 'tag_id', 'file_id', 'book_file', 'publish'
     ];
 
-    public function getTakeImageAttribute(){
+    public function getTakeImageAttribute()
+    {
         return "/storage/" . $this->thumbnail;
     }
 
@@ -36,11 +37,22 @@ class book extends Model
     {
         return $this->belongsTo(file::class);
     }
-    public function comment(){
+    public function comment()
+    {
         return $this->hasMany(comment::class);
     }
 
-    public function cart(){
+    public function cart()
+    {
         return $this->hasMany(cart::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(order::class);
+    }
+    public function purchased()
+    {
+        return $this->hasMany(purchased::class);
     }
 }

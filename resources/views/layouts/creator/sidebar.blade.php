@@ -29,14 +29,16 @@
                 <i style="font-size: 10px;" class="fas fa-chart-pie fa-fw me-3"></i><span
                     style="font-size: 12px;">favorite</span>
             </a>
-            <a href="#" class="list-group-item list-group-item-action py-2 ripple mt-2">
+            <a href="{{ route('purchased') }}" class="list-group-item list-group-item-action py-2 ripple mt-2">
                 <i style="font-size: 10px;" class="fas fa-chart-pie fa-fw me-3"></i><span
                     style="font-size: 12px;">purchased</span>
             </a>
-            <a href="#" class="list-group-item list-group-item-action py-2 ripple mt-2"><i style="font-size: 10px;"
-                    class="fas fa-globe fa-fw me-3"></i><span style="font-size: 12px;">Transaction</span></a>
-            <a href="#" class="list-group-item list-group-item-action py-2 ripple mt-2"><i style="font-size: 10px;"
-                    class="fas fa-money-bill fa-fw me-3"></i><span style="font-size: 12px;">Sales</span></a>
+            <a href="{{ route('transaction') }}" class="list-group-item list-group-item-action py-2 ripple mt-2"><i
+                    style="font-size: 10px;" class="fas fa-globe fa-fw me-3"></i><span
+                    style="font-size: 12px;">Transaction</span></a>
+            <a href="{{ route('income') }}" class="list-group-item list-group-item-action py-2 ripple mt-2"><i
+                    style="font-size: 10px;" class="fas fa-globe fa-fw me-3"></i><span
+                    style="font-size: 12px;">Income</span></a>
         </div>
     </div>
 </nav>

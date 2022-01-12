@@ -30,9 +30,17 @@ class cartController extends Controller
 
         return view('creators.cart.cart', compact('carts'));
     }
+
     public function favoritedelete(cart $cart)
     {
         $cart->delete();
         return back()->with("success", "delete favorite");
+    }
+
+    public function cartlanding()
+    {
+        $carts = Auth::user()->cart()->get();
+        // dd($carts);
+        return view('landing.cart.cart',compact('carts'));
     }
 }

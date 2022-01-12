@@ -6,9 +6,10 @@ use App\Http\Controllers\Web\Admin\RoleAndPermission\{GivePermissionController, 
 use App\Http\Controllers\Web\Admin\User\UserController;
 use App\Http\Controllers\Web\BecomeAcreatorController;
 use App\Http\Controllers\Web\cartController;
-use App\Http\Controllers\Web\Creator\{BookCreatorController, DashboardCreatorController};
+use App\Http\Controllers\Web\Creator\{BookCreatorController, DashboardCreatorController, IncomeController, PurchasedController, TransactionController};
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\Landing\{CommentController, LandingController};
+use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\ProfileController;
 use Illuminate\Support\Facades\{Auth, Route};
 
@@ -46,6 +47,18 @@ Route::middleware('auth')->group(function () {
                         Route::patch('/update/{file:slug}', [FileController::class, 'fileupdate'])->name('fileupdate');
                         Route::delete('/delete/{file:slug}', [FileController::class, 'filedelete'])->name('filedelete');
                     });
+                });
+
+                Route::prefix('transaction')->group(function () {
+                    Route::get('/success', [TransactionController::class, 'transactionadminsuccess'])->name('transactionadminsuccess');
+                    Route::get('/pending', [TransactionController::class, 'transactionadminpending'])->name('transactionadminpending');
+                    Route::get('/faild', [TransactionController::class, 'transactionadminfaild'])->name('transactionadminfaild');
+                });
+
+                Route::prefix('widraw')->group(function () {
+                    Route::get('/request', [IncomeController::class, 'widrawrequest'])->name('widrawrequest');
+                    Route::patch('/update/{widraw}', [IncomeController::class, 'widrawupdate'])->name('widrawupdate');
+                    Route::get('/success', [IncomeController::class, 'widrawsuccess'])->name('widrawsuccess');
                 });
                 Route::group(['middleware' => ['role:super admin|admin|creator']], function () {
                 });
@@ -98,6 +111,10 @@ Route::middleware('auth')->group(function () {
                 });
             });
         });
+        Route::prefix('checkout')->group(function () {
+            Route::get('/{book:slug}', [OrderController::class, 'checkoutview'])->name('checkoutview');
+            Route::post('create/{book:slug}/{cart}', [OrderController::class, 'checkoutcreate'])->name('checkoutcreate');
+        });
         // dashboard  creators
         Route::group(['middleware' => ['role:creator|admin|super admin|writer']], function () {
             route::prefix('dashboard')->group(function () {
@@ -119,6 +136,7 @@ Route::middleware('auth')->group(function () {
             });
         });
         Route::prefix('cart')->group(function () {
+            Route::get('/', [cartController::class, 'cartlanding'])->name('cartlanding');
             Route::post('/{book:slug}', [cartController::class, 'addtocart'])->name('addtocart');
             Route::get('favorite', [cartController::class, 'favorite'])->name('favorite');
             Route::delete('delete/{cart}', [cartController::class, 'favoritedelete'])->name('favoritedelete');
@@ -128,6 +146,16 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [BecomeAcreatorController::class, 'becomeacreator'])->name('becomeacreator');
                 Route::post('/addbecomeacreator', [BecomeAcreatorController::class, 'addbecomeacreator'])->name('addbecomeacreator');
             });
+        });
+        Route::prefix('purchased')->group(function () {
+            Route::get('/', [PurchasedController::class, 'purchased'])->name('purchased');
+        });
+        Route::prefix('transaction')->group(function () {
+            Route::get('/', [TransactionController::class, 'transaction'])->name('transaction');
+        });
+        Route::prefix('income')->group(function () {
+            Route::get('/', [IncomeController::class, 'income'])->name('income');
+            Route::post('/widraw', [IncomeController::class, 'widraw'])->name('widraw');
         });
     });
     Route::get('/detail/{book:slug}', [LandingController::class, 'landingdetail'])->name('landingdetail');

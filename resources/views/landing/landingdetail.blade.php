@@ -9,7 +9,7 @@
                 {{ $title }}
             </div>
             <div class="text-publish">
-                123 sales | <strong style="color: blue">indnonesia, palembang</strong>
+                {{ $book->order->count() }} sales | <strong style="color: blue">indnonesia, palembang</strong>
             </div>
         </div>
         <div class="row d-flex">
@@ -59,7 +59,7 @@
             <div class="mt-3">
                 <div class="row d-flex text-publish border px-2 py-1">
                     <div>
-                        <i class="fas fa-shopping-cart"></i> 120 sales
+                        <i class="fas fa-shopping-cart"></i> {{ $book->order->count() }} sales
                     </div>
                     <div class="pl-3">
                         <i class="fas fa-eye"></i> {{ $book->comment->count() }} Reviews

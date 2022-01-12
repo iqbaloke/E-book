@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,9 @@ class ProfileController extends Controller
 {
     public function profile()
     {
-        return view('creators.profile.profile');
+       $order = order::where('user_order', Auth::user()->id)->get();
+        // dd($order);
+        return view('creators.profile.profile',compact('order'));
     }
 
     public function profileupdate(Request $request, User $user)
