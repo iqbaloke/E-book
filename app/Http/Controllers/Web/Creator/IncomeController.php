@@ -50,12 +50,12 @@ class IncomeController extends Controller
     public function widrawrequest()
     {
         $widraws = widraw::where('status', 2)->get();
-        return view('admin.widraw.widrawrequest',compact('widraws'));
+        return view('admin.widraw.widrawrequest', compact('widraws'));
     }
     public function widrawsuccess()
     {
         $widraws = widraw::where('status', 1)->get();
-        return view('admin.widraw.widrawsuccess',compact('widraws'));
+        return view('admin.widraw.widrawsuccess', compact('widraws'));
     }
     public function widrawupdate(widraw $widraw)
     {

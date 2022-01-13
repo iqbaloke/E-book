@@ -16,6 +16,7 @@ class OrderController extends Controller
     {
         return view('landing.checkout.checkout', compact('book'));
     }
+
     public function checkoutcreate(book $book, cart $cart)
     {
         order::create([

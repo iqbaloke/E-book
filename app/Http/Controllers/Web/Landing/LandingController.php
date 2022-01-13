@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Landing;
 use App\Http\Controllers\Controller;
 use App\Models\book;
 use App\Models\category;
+use App\Models\income;
 use App\Models\tag;
 use App\Models\User;
 
@@ -12,9 +13,15 @@ class LandingController extends Controller
 {
     public function landing()
     {
-        $books = book::where('publish',1)->paginate(40);
-        $authors = User::paginate(10);
-        return view('landing.welcome', compact('books','authors'));
+        $books = book::where('publish', 1)->paginate(40);
+        $bookrecomendations = book::withCount('order')
+            ->orderBy('order_count', 'desc')
+            ->paginate(10);
+
+        $authors = User::withCount('order')
+            ->orderBy('order_count', 'desc')
+            ->paginate(10);
+        return view('landing.welcome', compact('books', 'bookrecomendations','authors'));
     }
 
     public function landingdetail(book $book)
@@ -42,7 +49,6 @@ class LandingController extends Controller
     public function categorytagdetail(category $category, tag $tag)
     {
         return view('landing.category.categorytag', [
-
             'category' => "$category->category_name",
             'tag' => "$tag->tag_name",
             'tagbook' => book::where('tag_id', $tag->id)->get(),

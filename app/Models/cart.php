@@ -12,7 +12,7 @@ class cart extends Model
     protected $fillable = ['user_id','price','book_id'];
 
     public function user(){
-        return $this->belongsTo(user::class,'user_Id');
+        return $this->belongsTo(user::class,'user_id');
     }
     public function book(){
         return $this->belongsTo(book::class);

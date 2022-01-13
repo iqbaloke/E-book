@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserProductResource;
+use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +41,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+            'phone' => 'required',
         ]);
 
         $user = User::create([
@@ -46,19 +49,24 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-
-        return response()->json([
-            'message' => 'success create account',
-            'user' => $user,
+        $user->userdetail()->create([
+            'phone' => $request->phone,
         ]);
+        $user->assignRole("writer");
+        // return response()->json([
+        //     'message' => 'success create account',
+        //     'user' => $user,
+        // ]);
+        return new UserResource($user);
     }
 
-    public function ceklogin()
+    public function me()
     {
-        $cek = Auth::user()->name;
-        return response()->json([
-            'message' => 'success login',
-            'user' => $cek,
-        ]);
+        $cek = Auth::user();
+        return new UserProductResource($cek);
+        // return response()->json([
+        //     'message' => 'success login',
+        //     'user' => $cek,
+        // ]);
     }
 }

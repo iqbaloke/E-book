@@ -103,6 +103,7 @@
             <div class="pl-3 text-publish">
                 <i class="fas fa-eye"></i> {{ $book->comment->count() }} Reviews
             </div>
+            @if ($book->comment->count() >= 1)
             <div class="mt-3">
                 <div style="border: 1px solid rgb(180, 180, 180); border-radius: 8px;" class="px-2 py-2">
                     @foreach ($book->comment as $item)
@@ -166,6 +167,7 @@
                     @endforeach
                 </div>
             </div>
+            @endif
             <form action="{{ route('comment', $book->slug) }}" method="POST">
                 @csrf
                 <div class="form-group mt-3">

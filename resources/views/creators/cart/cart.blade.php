@@ -7,8 +7,13 @@
         {{ session("success") }}
     </div>
     @endif
-    <h5>You Have {{ auth()->user()->cart->count() }} book in the cart</h5>
+    <h5>You Have {{ auth()->user()->cart->count() }} book in cart</h5>
     <hr>
+    @if ($carts->count() == "0")
+    <div class="text-center">
+        <img src="{{ asset('images/no-data.jpg') }}" alt="">
+    </div>
+    @else
     <div class="row">
         @foreach ($carts as $cart)
         <div class="col-md-3 mt-3">
@@ -62,8 +67,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('favoritedelete',$cart->id) }}"
-                                                method="POST">
+                                            <form action="{{ route('favoritedelete',$cart->id) }}" method="POST">
                                                 @csrf
                                                 @method("DELETE")
                                                 <div class="modal-footer">
@@ -84,5 +88,6 @@
         </div>
         @endforeach
     </div>
+    @endif
 </div>
 @endsection

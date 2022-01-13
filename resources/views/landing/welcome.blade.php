@@ -16,6 +16,10 @@
     .slick-next:before {
         color: black;
     }
+
+    .slick-list {
+        padding-left: 0px !important;
+    }
 </style>
 <section class="home d-flex align-items-center">
     <div class="container">
@@ -54,31 +58,96 @@
     </div>
 </section>
 <div class="container mt-5 container-body">
-    <h4><strong>Author</strong></h4>
+    <h4><strong>Authors</strong></h4>
     <div class="container mt-3">
-        <div style="align-items: flex-start;" class="responsive">
+        <div style="align-items: flex-start; " class="authors">
             @foreach ($authors as $author)
-            <div class="px-2">
-                <div class="card">
-                    <div class="card-body">
-                        {{ $author->name }}
+            <div class="mt-3 px-2">
+                {{-- <a style="color: #ffffff00" href="{{ route('landingdetail', $author->slug) }}" --}} {{--
+                    class="text-decoration-none"> --}}
+                    <div class="card card-shadow card-hover">
+                        <div class="card-title">
+                            @if ($author->takeImage == "/storage/")
+                            <img style="height: 200px; width:800px;" src="{{ asset('images/no-image.png') }}"
+                                class="img-fluid border" alt="">
+                            @else
+                            <img style="height: 200px; width:800px;" src="{{ $author->takeImage }}"
+                                class="img-fluid border" alt="">
+                            @endif
+                        </div>
+                        <div style="margin-top: -20px" class="card-body">
+                            <div class="text-title">
+                                {{ $author->name }}
+                            </div>
+                            <div class="text-category-tag">
+                                {{ $author->userdetail->country ?? "confidential" }}
+                            </div>
+                            {{-- <div class="row justify-content-between px-3 py-2 ">
+                                <div class="text-price">
+                                    ${{ $author->income->total_income ?? "0"}}
+                                </div>
+                                <div class="text-publish d-flex align-items-center">
+                                    {{ $author->book->count() }} Books
+                                </div>
+                            </div> --}}
+                        </div>
                     </div>
-                </div>
+                    {{--
+                </a> --}}
             </div>
             @endforeach
         </div>
     </div>
 </div>
 <div class="container mt-5 container-body">
-    <h4><strong>Recomendation for you</strong></h4>
+    <h4><strong>Recomendation Books</strong></h4>
+    <div class="container mt-3">
+        <div style="align-items: flex-start; " class="recomendatoionbook">
+            @foreach ($bookrecomendations as $recomendation)
+            <div class="mt-3 px-2">
+                <a style="color: #ffffff00" href="{{ route('landingdetail', $recomendation->slug) }}"
+                    class="text-decoration-none">
+                    <div class="card card-shadow card-hover">
+                        <div class="card-title">
+                            <img style="height: 150px; width:800px;" src="{{ $recomendation->takeImage }}"
+                                class="img-fluid" alt="">
+                        </div>
+                        <div style="margin-top: -20px" class="card-body">
+                            <div class="text-category-tag">
+                                {{ $recomendation->category->category_name }} |
+                                {{ $recomendation->tag->tag_name }}
+                            </div>
+                            <div class="text-title">
+                                {{ Str::limit($recomendation->title, 25) }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card-text px-3">
+                            <div class="row justify-content-between px-3 mb-2 ">
+                                <div class="text-price">
+                                    ${{ $recomendation->price }}
+                                </div>
+                                <div class="text-publish d-flex align-items-center">
+                                    {{ $recomendation->order->count() }} sales
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+<div class="container mt-5 container-body">
+    <h4><strong>All Books</strong></h4>
     <div class="row">
         @foreach ($books as $book)
         <div class="col-md-3 mt-3">
             <a style="color: #ffffff00" href="{{ route('landingdetail', $book->slug) }}" class="text-decoration-none">
                 <div class="card card-shadow card-hover">
                     <div class="card-title">
-                        <img style="max-height: 120px; width:300px;" src="{{ $book->takeImage }}" class="img-fluid"
-                            alt="">
+                        <img style="height: 150px; width:800px;" src="{{ $book->takeImage }}" class="img-fluid" alt="">
                     </div>
                     <div style="margin-top: -20px" class="card-body">
                         <div class="text-category-tag">
@@ -86,14 +155,17 @@
                             {{ $book->tag->tag_name }}
                         </div>
                         <div class="text-title">
-                            {{ $book->title }}
+                            {{ Str::limit($book->title, 25) }}
                         </div>
-                        <div class="row justify-content-between px-3 mt-2">
+                    </div>
+                    <hr>
+                    <div class="card-text px-3">
+                        <div class="row justify-content-between px-3 mb-2 ">
                             <div class="text-price">
                                 ${{ $book->price }}
                             </div>
-                            <div class="text-publish">
-                                123 sales
+                            <div class="text-publish d-flex align-items-center">
+                                {{ $book->order->count() }} sales
                             </div>
                         </div>
                     </div>
@@ -113,37 +185,69 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <script>
-    $('.responsive').slick({
-
-  infinite: false,
-  speed: 300,
-  slidesToShow: 5,
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: true
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
+    $('.recomendatoionbook').slick({
+    infinite: false,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true
+        }
+        },
+        {
+        breakpoint: 600,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 2
+        }
+        },
+        {
+        breakpoint: 480,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+        }
+        }
+    ]
+});
+</script>
+<script>
+    $('.authors').slick({
+    infinite: false,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true
+        }
+        },
+        {
+        breakpoint: 600,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 2
+        }
+        },
+        {
+        breakpoint: 480,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+        }
+        }
+    ]
 });
 </script>
 @endsection

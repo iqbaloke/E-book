@@ -9,6 +9,11 @@
     @endif
     <h5>You Have {{ auth()->user()->purchased->count() }} book purchased</h5>
     <hr>
+    @if ($purchaseds->count() == "0")
+    <div class="text-center">
+        <img src="{{ asset('images/no-data.jpg') }}" alt="">
+    </div>
+    @else
     <div class="row">
         @foreach ($purchaseds as $purchased)
         <div class="col-md-3 mt-3">
@@ -55,5 +60,6 @@
         </div>
         @endforeach
     </div>
+    @endif
 </div>
 @endsection

@@ -38,11 +38,20 @@
                 </div>
             </div>
             <div class="col-md-6 mt-3">
-                <img style=" border: 2px solid rgba(128, 128, 128, 0); border-radius: 20px;" src="{{ $category->takeImage }}" alt="">
+                <img style=" border: 2px solid rgba(128, 128, 128, 0); border-radius: 20px;"
+                    src="{{ $category->takeImage }}" alt="">
             </div>
         </div>
     </div>
 </section>
+@if ($books->count() == "0")
+<div class="text-center">
+    <img src="{{ asset('images/no-data.jpg') }}" alt="" class="img-fluid">
+    <div>
+        <h1>book not found</h1>
+    </div>
+</div>
+@else
 <div style="padding-top: 40px" class="container">
     <div class="row">
         <div class="col-md-4">
@@ -76,18 +85,15 @@
             </div>
         </div>
         <div class="col-md-8">
-            {{-- <div class="py-4 text-center">
-                <h4>all book in category</h4>
-                <hr>
-            </div> --}}
             <div class="row">
                 @foreach ($books as $book)
-                <div class="col-md-4">
-                    <a style="color: rgba(255, 255, 255, 0)" href="{{ route('landingdetail', $book->slug) }}">
+                <div class="col-md-4 mt-3">
+                    <a style="color: #ffffff00" href="{{ route('landingdetail', $book->slug) }}"
+                        class="text-decoration-none">
                         <div class="card card-shadow card-hover">
                             <div class="card-title">
-                                <img style="max-height:120px; width:350px" src="{{ $book->takeImage }}"
-                                    class="img-fluid" alt="">
+                                <img style="height: 150px; width:800px;" src="{{ $book->takeImage }}" class="img-fluid"
+                                    alt="">
                             </div>
                             <div style="margin-top: -20px" class="card-body">
                                 <div class="text-category-tag">
@@ -95,13 +101,16 @@
                                     {{ $book->tag->tag_name }}
                                 </div>
                                 <div class="text-title">
-                                    {{ $book->title }}
+                                    {{ Str::limit($book->title, 25) }}
                                 </div>
-                                <div class="row justify-content-between px-3 mt-2">
+                            </div>
+                            <hr>
+                            <div class="card-text px-3">
+                                <div class="row justify-content-between px-3 mb-2 ">
                                     <div class="text-price">
                                         ${{ $book->price }}
                                     </div>
-                                    <div class="text-publish">
+                                    <div class="text-publish d-flex align-items-center">
                                         123 sales
                                     </div>
                                 </div>
@@ -114,7 +123,8 @@
         </div>
     </div>
 </div>
-<div style="height: 1000px">
+@endif
+<div style="height: 100px">
 
 </div>
 @endsection

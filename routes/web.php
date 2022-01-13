@@ -48,7 +48,6 @@ Route::middleware('auth')->group(function () {
                         Route::delete('/delete/{file:slug}', [FileController::class, 'filedelete'])->name('filedelete');
                     });
                 });
-
                 Route::prefix('transaction')->group(function () {
                     Route::get('/success', [TransactionController::class, 'transactionadminsuccess'])->name('transactionadminsuccess');
                     Route::get('/pending', [TransactionController::class, 'transactionadminpending'])->name('transactionadminpending');
@@ -133,6 +132,18 @@ Route::middleware('auth')->group(function () {
                         Route::delete('delete/{book:slug}', [BookCreatorController::class, 'deletebookcreator'])->name('deletebookcreator');
                     });
                 });
+                Route::prefix('purchased')->group(function () {
+                    Route::get('/', [PurchasedController::class, 'purchased'])->name('purchased');
+                });
+                Route::prefix('transaction')->group(function () {
+                    Route::get('/', [TransactionController::class, 'transaction'])->name('transaction');
+                });
+                Route::group(['middleware' => ['role:super admin|admin|creator']], function () {
+                    Route::prefix('income')->group(function () {
+                        Route::get('/', [IncomeController::class, 'income'])->name('income');
+                        Route::post('/widraw', [IncomeController::class, 'widraw'])->name('widraw');
+                    });
+                });
             });
         });
         Route::prefix('cart')->group(function () {
@@ -146,16 +157,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [BecomeAcreatorController::class, 'becomeacreator'])->name('becomeacreator');
                 Route::post('/addbecomeacreator', [BecomeAcreatorController::class, 'addbecomeacreator'])->name('addbecomeacreator');
             });
-        });
-        Route::prefix('purchased')->group(function () {
-            Route::get('/', [PurchasedController::class, 'purchased'])->name('purchased');
-        });
-        Route::prefix('transaction')->group(function () {
-            Route::get('/', [TransactionController::class, 'transaction'])->name('transaction');
-        });
-        Route::prefix('income')->group(function () {
-            Route::get('/', [IncomeController::class, 'income'])->name('income');
-            Route::post('/widraw', [IncomeController::class, 'widraw'])->name('widraw');
         });
     });
     Route::get('/detail/{book:slug}', [LandingController::class, 'landingdetail'])->name('landingdetail');
