@@ -25,6 +25,12 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('bookauthormost/', [BookController::class, 'bookauthormost']);
             Route::get('bookrecomendation/', [BookController::class, 'bookrecomendation']);
             Route::get('/single-book/{book:slug}', [BookController::class, 'singlebook']);
+
+            Route::prefix('creator')->group(function () {
+                Route::post('create', [BookController::class, 'createbook']);
+                Route::patch('bookupdate/{book:slug}', [BookController::class, 'bookupdate']);
+                Route::delete('bookdelete/{book:slug}',[BookController::class,'bookdelete']);
+            });
         });
 
         Route::prefix('category')->group(function () {
@@ -39,21 +45,21 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('deletecart/{cart}', [cartController::class, 'deletecart']);
         });
 
-        Route::prefix('dashboard')->group(function(){
-            Route::get('/',[DashboardController::class,'dashboard']);
-            Route::prefix('book')->group(function(){
-                Route::get('/', [BookCreatorController::class,'bookcreator']);
+        Route::prefix('dashboard')->group(function () {
+            Route::get('/', [DashboardController::class, 'dashboard']);
+            Route::prefix('book')->group(function () {
+                Route::get('/', [BookCreatorController::class, 'bookcreator']);
             });
-            Route::prefix('purchased')->group(function(){
-                Route::get('/', [PurchasedController::class,'purchased']);
+            Route::prefix('purchased')->group(function () {
+                Route::get('/', [PurchasedController::class, 'purchased']);
             });
-            Route::prefix('transaction')->group(function(){
-                Route::get('/', [TransactionController::class,'transaction']);
+            Route::prefix('transaction')->group(function () {
+                Route::get('/', [TransactionController::class, 'transaction']);
             });
-            Route::prefix('income')->group(function(){
-                Route::get('/', [IncomeController::class,'income']);
+            Route::prefix('income')->group(function () {
+                Route::get('/', [IncomeController::class, 'income']);
+                Route::post('/widraw', [IncomeController::class, 'widraw']);
             });
         });
-
     });
 });
