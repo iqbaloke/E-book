@@ -33,7 +33,7 @@
                     <div class="home-btn">
                         <a href="" class="btn btn-1">download app</a>
                     </div>
-                    <div class="row border-icon">
+                    {{-- <div class="row border-icon">
                         <a href="" class="border border-danger">
                             <i class="fas fa-file-pdf text-danger"></i>
                         </a>
@@ -43,11 +43,11 @@
                         <a href="" class="border border-danger">
                             <i class="fas fa-file-pdf text-danger"></i>
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>
-            <div class="col-lg-5 col-md-5">
+            <div class="col-lg-5 col-md-5 d-flex justify-content-center">
                 <div class="home-img">
                     <div class="circle">
                     </div>
@@ -57,122 +57,129 @@
         </div>
     </div>
 </section>
-<div class="container mt-5 container-body">
-    <h4><strong>Authors</strong></h4>
-    <div class="container mt-3">
-        <div style="align-items: flex-start; " class="authors">
-            @foreach ($authors as $author)
-            <div class="mt-3 px-2">
-                {{-- <a style="color: #ffffff00" href="{{ route('landingdetail', $author->slug) }}" --}} {{--
-                    class="text-decoration-none"> --}}
-                    <div class="card card-shadow card-hover">
-                        <div class="card-title">
+<div class="container-fluid mt-5 container-body">
+    <div class="container-fluid mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h4><strong>Authors</strong></h4>
+                <hr>
+                <div class="authors">
+                    @foreach ($authors as $author)
+                    <div class="mt-3 px-2">
+                        <div style="border-radius:10px;" class="card card-hover">
                             @if ($author->takeImage == "/storage/")
-                            <img style="height: 200px; width:800px;" src="{{ asset('images/no-image.png') }}"
-                                class="img-fluid border" alt="">
+                            <img style="height: 200px; width:800px; border-radius:10px;"
+                                src="{{ asset('images/no-image.png') }}" class="img-fluid" alt="">
                             @else
-                            <img style="height: 200px; width:800px;" src="{{ $author->takeImage }}"
-                                class="img-fluid border" alt="">
+                            <img style="height: 200px; width:800px; border-radius:10px;" src="{{ $author->takeImage }}"
+                                class="img-fluid " alt="">
                             @endif
-                        </div>
-                        <div style="margin-top: -20px" class="card-body">
-                            <div class="text-title">
-                                {{ $author->name }}
-                            </div>
-                            <div class="text-category-tag">
-                                {{ $author->userdetail->country ?? "confidential" }}
-                            </div>
-                            {{-- <div class="row justify-content-between px-3 py-2 ">
-                                <div class="text-price">
-                                    ${{ $author->income->total_income ?? "0"}}
+                            <div class="card-body">
+                                <div class="text-title mt-2">
+                                    {{ $author->name }}
                                 </div>
-                                <div class="text-publish d-flex align-items-center">
-                                    {{ $author->book->count() }} Books
-                                </div>
-                            </div> --}}
-                        </div>
-                    </div>
-                    {{--
-                </a> --}}
-            </div>
-            @endforeach
-        </div>
-    </div>
-</div>
-<div class="container mt-5 container-body">
-    <h4><strong>Recomendation Books</strong></h4>
-    <div class="container mt-3">
-        <div style="align-items: flex-start; " class="recomendatoionbook">
-            @foreach ($bookrecomendations as $recomendation)
-            <div class="mt-3 px-2">
-                <a style="color: #ffffff00" href="{{ route('landingdetail', $recomendation->slug) }}"
-                    class="text-decoration-none">
-                    <div class="card card-shadow card-hover">
-                        <div class="card-title">
-                            <img style="height: 150px; width:800px;" src="{{ $recomendation->takeImage }}"
-                                class="img-fluid" alt="">
-                        </div>
-                        <div style="margin-top: -20px" class="card-body">
-                            <div class="text-category-tag">
-                                {{ $recomendation->category->category_name }} |
-                                {{ $recomendation->tag->tag_name }}
-                            </div>
-                            <div class="text-title">
-                                {{ Str::limit($recomendation->title, 25) }}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="card-text px-3">
-                            <div class="row justify-content-between px-3 mb-2 ">
-                                <div class="text-price">
-                                    ${{ $recomendation->price }}
-                                </div>
-                                <div class="text-publish d-flex align-items-center">
-                                    {{ $recomendation->order->count() }} sales
+                                <div class="text-category-tag">
+                                    {{ $author->userdetail->country ?? "confidential" }}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </a>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</div>
-<div class="container mt-5 container-body">
-    <h4><strong>All Books</strong></h4>
-    <div class="row">
-        @foreach ($books as $book)
-        <div class="col-md-3 mt-3">
-            <a style="color: #ffffff00" href="{{ route('landingdetail', $book->slug) }}" class="text-decoration-none">
-                <div class="card card-shadow card-hover">
-                    <div class="card-title">
-                        <img style="height: 150px; width:800px;" src="{{ $book->takeImage }}" class="img-fluid" alt="">
-                    </div>
-                    <div style="margin-top: -20px" class="card-body">
-                        <div class="text-category-tag">
-                            {{ $book->category->category_name }} |
-                            {{ $book->tag->tag_name }}
-                        </div>
-                        <div class="text-title">
-                            {{ Str::limit($book->title, 25) }}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="card-text px-3">
-                        <div class="row justify-content-between px-3 mb-2 ">
-                            <div class="text-price">
-                                ${{ $book->price }}
-                            </div>
-                            <div class="text-publish d-flex align-items-center">
-                                {{ $book->order->count() }} sales
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-            </a>
+            </div>
         </div>
-        @endforeach
+    </div>
+</div>
+<div class="container-fluid mt-5 container-body">
+    <div class="container-fluid mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h4><strong>Recomendation For You</strong></h4>
+                <hr>
+                <div class="recomendatoionbook mt-3">
+                    @foreach ($bookrecomendations as $recomendation)
+                    <div class="py-3 px-2">
+                        <a style="color: #ffffff00" href="{{ route('landingdetail', $recomendation->slug) }}"
+                            class="text-decoration-none">
+                            <div style="border-radius:10px; border: 1px solid;
+                            padding: 10px;
+                            box-shadow: 2px 2px 5px 2px #ebebeb;" class="card card-hover">
+                                <div class="card-title">
+                                    <img style="height: 150px; width:800px; border-radius:10px;"
+                                        src="{{ $recomendation->takeImage }}" class="img-fluid" alt="">
+                                </div>
+                                <div style="margin-top: -20px" class="card-body">
+                                    <div class="text-category-tag">
+                                        {{ $recomendation->category->category_name }} |
+                                        {{ $recomendation->tag->tag_name }}
+                                    </div>
+                                    <div class="text-title">
+                                        {{ Str::limit($recomendation->title, 25) }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="card-text px-3">
+                                    <div class="row justify-content-between px-3 mb-2 ">
+                                        <div class="text-price">
+                                            ${{ $recomendation->price }}
+                                        </div>
+                                        <div class="text-publish d-flex align-items-center">
+                                            {{ $recomendation->order->count() }} sales
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="padding-Left:30px;padding-right:30px;" class="container-fluid mt-5 container-body">
+    <div class="card">
+        <div class="card-body">
+            <h4><strong>All Books</strong></h4>
+            <hr>
+            <div class="row mt-3">
+                @foreach ($books as $book)
+                <div class="col-md-3 mt-3">
+                    <a style="color: #ffffff00" href="{{ route('landingdetail', $book->slug) }}"
+                        class="text-decoration-none">
+                        <div style="border-radius:10px; border: 1px solid;
+                        padding: 10px;
+                        box-shadow: 2px 2px 5px 2px #ebebeb;" class="card card-hover">
+                            <div class="card-title">
+                                <img style="height: 150px; width:800px; border-radius:10px;"
+                                    src="{{ $book->takeImage }}" class="img-fluid" alt="">
+                            </div>
+                            <div style="margin-top: -20px" class="card-body">
+                                <div class="text-category-tag">
+                                    {{ $book->category->category_name }} |
+                                    {{ $book->tag->tag_name }}
+                                </div>
+                                <div class="text-title">
+                                    {{ Str::limit($book->title, 25) }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="card-text px-3">
+                                <div class="row justify-content-between px-3 mb-2 ">
+                                    <div class="text-price">
+                                        ${{ $book->price }}
+                                    </div>
+                                    <div class="text-publish d-flex align-items-center">
+                                        {{ $book->order->count() }} sales
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
     <div style="height: 100px">
 
@@ -188,7 +195,7 @@
     $('.recomendatoionbook').slick({
     infinite: false,
     speed: 300,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     responsive: [
         {
@@ -221,7 +228,7 @@
     $('.authors').slick({
     infinite: false,
     speed: 300,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     responsive: [
         {
