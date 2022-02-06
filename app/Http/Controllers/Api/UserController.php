@@ -63,10 +63,10 @@ class UserController extends Controller
     public function me()
     {
         $cek = Auth::user();
-        return new UserProductResource($cek);
-        // return response()->json([
-        //     'message' => 'success login',
-        //     'user' => $cek,
-        // ]);
+        $book = Auth::user()->book;
+        return response()->json([
+            'user' => $cek,
+            'bookuser' => $book,
+        ]);
     }
 }

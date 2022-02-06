@@ -42,7 +42,7 @@
                 src="{{ asset('images/person.jpg') }}" alt="">
         </div> --}}
     {{-- </div> --}}
-    <div class="text-center py-5">
+    <div style="padding-top:100px; padding-bottom:50px;" class="text-center">
         <div>
             <p style="font-size: 30px;  font-weight: 700; color: #000000; margin: 0 0 ">Become A Creators,</p>
             <p style="font-size: 16px;  font-weight: 500; color: #000000; margin: 0 0; padding-bottom:10px;">show your

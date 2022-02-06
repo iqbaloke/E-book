@@ -43,6 +43,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'country' => $this->userdetail->country,
+            'thumbnail' => $this->userdetail->thumbnail ? asset('/storage/' . $this->userdetail->thumbnail) : null,
+            'phone' => $this->userdetail->phone,
+            'status' => $this->userdetail->status,
+            'last_education' => $this->userdetail->last_education,
+            'major' => $this->userdetail->major,
+            'location_of_education' => $this->userdetail->location_of_education,
+            'description' => $this->userdetail->description,
+            'city' => $this->userdetail->city,
+            'address' => $this->userdetail->address,
+            'book_sale' => $this->order->count(),
+            'facebook' => $this->sosmed->facebook ?? "null",
+            'instagram' => $this->sosmed->instagram ?? "null",
+            'twitter' => $this->sosmed->twitter ?? "null",
+            'github' => $this->sosmed->github ?? "null",
+            'linkdin' => $this->sosmed->linkdin ?? "null",
+        ];
+    }
+
     public function book()
     {
         return $this->hasMany(book::class);
@@ -59,7 +85,7 @@ class User extends Authenticatable
 
     public function getTakeImageAttribute()
     {
-        return "/storage/" . $this->userdetail->thumbnail;
+        return asset('/storage/' . $this->userdetail->thumbnail);
     }
     public function cart()
     {
@@ -67,7 +93,7 @@ class User extends Authenticatable
     }
     public function sosmed()
     {
-        return $this->hasMany(sosmed::class);
+        return $this->hasOne(sosmed::class);
     }
     public function income()
     {

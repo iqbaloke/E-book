@@ -15,21 +15,55 @@ class CategoryController extends Controller
 {
     public function allcaregory()
     {
-        $category = category::get();
-        return CategoryResource::collection($category);
+        $category = category::withCount('book')->get();
+        // return $category;
+        return response()->json([
+            "category" => $category,
+        ]);
+    }
+
+    public function alltag()
+    {
+        $tag = tag::get();
+        // return $tag;
+        return response()->json([
+            "tag" => $tag,
+        ]);
+    }
+    public function selecttag(category $category)
+    {
+        // return "hello";
+        $test = tag::where('category_id', $category->id)->get();
+        return $test;
     }
 
     public function singlecategory(category $category)
     {
-        return new SingleCategoryResource($category);
-    }
-    public function categorytag(category $category, tag $tag)
-    {
-        $book = book::where('tag_id', $tag->id)->get();
+        $category_single = book::where('category_id', $category->id)
+            ->where('publish', 1)
+            ->where('approved', 1)
+            ->get();
         return response()->json([
-            'category_name' => $category->category_name,
-            'tag' => $tag->tag_name,
-            'book_count_in_tag' => $book->count(),
+            'detailcategory' => CollectionBooktResource::collection($category_single),
+        ]);
+    }
+    public function categorytag(category $category)
+    {
+        $category_tags = $category->tags()->get();
+        return response()->json([
+            'category_tag' => $category_tags,
+        ]);
+    }
+    public function booktag(category $category, tag $tag)
+    {
+        $book = book::where('tag_id', $tag->id)
+            ->where('publish', 1)
+            ->where('approved', 1)
+            ->get();
+        return response()->json([
+            // 'category_name' => $category->category_name,
+            // 'tag' => $tag->tag_name,
+            // 'book_count_in_tag' => $book->count(),
             'book' => CollectionBooktResource::collection($book),
         ]);
     }

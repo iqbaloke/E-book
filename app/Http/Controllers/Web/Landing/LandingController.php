@@ -21,7 +21,7 @@ class LandingController extends Controller
         $authors = User::withCount('order')
             ->orderBy('order_count', 'desc')
             ->paginate(10);
-        return view('landing.welcome', compact('books', 'bookrecomendations','authors'));
+        return view('landing.welcome', compact('books', 'bookrecomendations', 'authors'));
     }
 
     public function landingdetail(book $book)

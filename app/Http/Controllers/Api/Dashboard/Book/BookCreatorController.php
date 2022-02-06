@@ -16,4 +16,9 @@ class BookCreatorController extends Controller
 
         return CollectionBooktResource::collection($book);
     }
+    public function topbookcreator()
+    {
+        $booktopauthor = Auth::user()->book()->withCount('order')->latest()->paginate(5);
+        return CollectionBooktResource::collection($booktopauthor);
+    }
 }

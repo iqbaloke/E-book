@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Income;
+namespace App\Http\Resources\Comment;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IncomeResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,8 @@ class IncomeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'widraw_key' => $this->widraw_key,
-            'nominal' => $this->nominal,
-            'payment' => $this->payment,
-            'payment_name' => $this->payment_name,
-            'status' => $this->status,
-            'created_at' => $this->created_at->format("d F, Y"),
+            'user_id' => $this->user,
+            'description' => $this->description,
         ];
     }
 }

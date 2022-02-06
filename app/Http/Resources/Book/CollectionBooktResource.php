@@ -15,6 +15,7 @@ class CollectionBooktResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'book_file' => asset("/storage/" . $this->book_file),
             'book_key' => $this->book_key,
             'publish' => $this->publish,
             'user_id' => $this->user,
@@ -25,6 +26,13 @@ class CollectionBooktResource extends JsonResource
             'price' => $this->price,
             'thumbnail' => $this->takeImage,
             'file_id' => $this->file,
+            'order_count' => $this->order_count,
+            'description' => $this->description,
+            'created_at' => $this->created_at->format("d F, Y"),
+            'page' => $this->page,
+            'approved' => $this->approved,
+            'reviews' => $this->comment->count(),
+            'payment' => $this->payment,
         ];
     }
 }

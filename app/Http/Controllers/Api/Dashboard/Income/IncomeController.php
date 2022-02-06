@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Dashboard\Income;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Income\IncomeResource;
 use App\Models\income;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +18,21 @@ class IncomeController extends Controller
         $residual_income = auth()->user()->income->residual_income ?? "0";
         $expenditure = auth()->user()->income->expenditure ?? "0";
 
+        // $reviews = auth()->user()->book()->withCount("order")->get();
+        // foreach ($reviews as $value) {
+        //    $chek = $value->id;
+        // }
+        // $chek = $reviews;
+        // dd($chek);
+
         return response([
             'orders' => $orders,
             'income_total' => $income_total,
             'residual_income' => $residual_income,
             'expenditure' => $expenditure,
-            'widraw' => Auth::user()->widraw()->get(),
+            'book_count' => auth()->user()->book()->count(),
+            // 'reviews' => auth()->user()->book()->comment()->get(),
+            'widraw' => IncomeResource::collection(Auth::user()->widraw()->get()),
         ]);
     }
     public function widraw(Request $request)
@@ -35,7 +45,7 @@ class IncomeController extends Controller
         $update = income::where('user_id', auth()->user()->id)->first();
         if ($request->nominal == 0) {
             return response()->json([
-                'message' => "your money is not enough",
+                'message' => "money",
             ]);
         } else {
             if ($request->nominal < $ok) {
@@ -53,12 +63,12 @@ class IncomeController extends Controller
                     'expenditure' => $update->expenditure + $request->nominal,
                 ]);
                 return response()->json([
-                    'message' => "success windraw",
+                    'message' => "success",
                     "widraw" => $widraw,
                 ]);
             } else {
                 return response()->json([
-                    'message' => "your money is not enough",
+                    'message' => "uppsss",
                 ]);
             }
         }

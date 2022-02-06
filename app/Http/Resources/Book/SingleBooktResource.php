@@ -32,6 +32,9 @@ class SingleBooktResource extends JsonResource
             'description' => $this->description,
             'created_at' => $this->created_at->format('d F, Y'),
             'discon' => $this->discon,
+            'sale' => $this->order->count(),
+            'comment' =>$this->comment->count(),
+            'book_count' => $this->user->book->count(),
         ];
     }
 }

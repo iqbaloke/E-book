@@ -18,22 +18,38 @@ class cartController extends Controller
         return CartResource::collection($cart);
     }
 
+    public function checkcart()
+    {
+        $check_cart = Auth::user()->cart()->count();
+        return response()->json([
+            'user' => Auth::user()->name,
+            'cart_count' => $check_cart,
+        ]);
+    }
+
     public function addcart(book $book)
     {
-        $chek = auth()->user()->cart()->where('book_id', $book->id)->first();
-        if ($chek) {
+        $check_publish = auth()->user()->purchased()->where('book_id', $book->id)->first();
+        $check = auth()->user()->cart()->where('book_id', $book->id)->first();
+        if ($check_publish) {
             return response()->json([
-                "message" => "already in the cart",
+                "message" => "already",
             ]);
         } else {
-            Auth::user()->cart()->create([
-                'book_id' => $book->id,
-                'price' => $book->price,
-            ]);
-            return response()->json([
-                "message" => "success, add to cart $book->title",
-                "book" => new SingleBooktResource($book),
-            ]);
+            if ($check) {
+                return response()->json([
+                    "message" => "you have buy in book",
+                ]);
+            } else {
+                Auth::user()->cart()->create([
+                    'book_id' => $book->id,
+                    'price' => $book->price,
+                ]);
+                return response()->json([
+                    "message" => "success",
+                    "book" => new SingleBooktResource($book),
+                ]);
+            }
         }
     }
 
@@ -41,7 +57,7 @@ class cartController extends Controller
     {
         $cart->delete();
         return response()->json([
-            "message" => "success delete cart",
+            "message" => "success",
         ]);
     }
 }

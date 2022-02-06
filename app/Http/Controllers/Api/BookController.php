@@ -16,30 +16,66 @@ class BookController extends Controller
 {
     public function allbook()
     {
-        $book = book::get();
-        return CollectionBooktResource::collection($book);
+        $book = book::where('publish', 1)
+            ->where('approved', 1)
+            ->withCount('order')->get();
+        return response()->json([
+            'allbook' => CollectionBooktResource::collection($book),
+        ]);
+    }
+    public function allbookpayment()
+    {
+        $book = book::where('publish', 1)
+            ->where('approved', 1)
+            ->where('payment', 1)
+            ->withCount('order')->get();
+        return response()->json([
+            'allbook' => CollectionBooktResource::collection($book),
+        ]);
+    }
+
+    public function allbookfree()
+    {
+        $book = book::where('publish', 1)
+            ->where('approved', 1)
+            ->where('payment', 0)
+            ->withCount('order')->get();
+        return response()->json([
+            'allbook' => CollectionBooktResource::collection($book),
+        ]);
     }
 
     public function singlebook(book $book)
     {
         return new SingleBooktResource($book);
     }
+
     public function bookauthormost()
 
     {
-        $authors = User::withCount('order')
-            ->orderBy('order_count', 'desc')
-            ->paginate(10);
-
-        return $authors;
+        $authors = User::withCount('order')->get();
+        return response()->json([
+            'authors' => $authors
+        ]);
     }
 
     public function bookrecomendation()
     {
-        $bookrecomendations = book::withCount('order')
-            ->orderBy('order_count', 'desc')
+        $bookrecomendations = book::where('publish', 1)
+            ->where('approved', 1)
+            ->withCount('order')
             ->paginate(10);
-        return CollectionBooktResource::collection($bookrecomendations);
+        return response()->json([
+            "recomendation" => CollectionBooktResource::collection($bookrecomendations),
+        ]);
+    }
+
+    public function mybook()
+    {
+        $mybook = Auth::user()->book()->withCount('order')->get();
+        return response()->json([
+            'mybook' => CollectionBooktResource::collection($mybook),
+        ]);
     }
 
     public function createbook(Request $request)
@@ -95,6 +131,7 @@ class BookController extends Controller
             ]);
         }
     }
+
     public function bookupdate(Request $request, book $book)
     {
         $this->authorize('editbook', $book);
