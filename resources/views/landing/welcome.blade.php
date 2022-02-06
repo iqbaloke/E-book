@@ -67,9 +67,9 @@
                     @foreach ($authors as $author)
                     <div class="mt-3 px-2">
                         <div style="border-radius:10px;" class="card card-hover">
-                            @if ($author->takeImage == "/storage/")
+                            @if ($author->userdetail->thumbnail == null)
                             <img style="height: 200px; width:800px; border-radius:10px;"
-                                src="{{ asset('images/no-image.png') }}" class="img-fluid" alt="">
+                                src="{{ asset('images/no-data.jpg') }}" class="img-fluid" alt="">
                             @else
                             <img style="height: 200px; width:800px; border-radius:10px;" src="{{ $author->takeImage }}"
                                 class="img-fluid " alt="">

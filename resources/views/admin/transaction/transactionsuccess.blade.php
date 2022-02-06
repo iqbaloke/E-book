@@ -14,7 +14,8 @@
                     <tr>
                         <th>No</th>
                         <th>Book Name</th>
-                        <th>User id</th>
+                        <th>Author Name</th>
+                        <th>Order Name</th>
                         <th>Price</th>
                         <th>Expired</th>
                         <th>payment</th>
@@ -26,7 +27,8 @@
                     <tr>
                         <td class="text-center">{{ $index + 1 }}</td>
                         <td>{{ $transaction->book->title }}</td>
-                        <td>{{ $transaction->user->name }}</td>
+                        <td>{{ $transaction->author->name }}</td>
+                        <td>{{ $transaction->userOrder->name }}</td>
                         <td>
                             {{ $transaction->price}}
                         </td>

@@ -15,9 +15,17 @@ class order extends Model
         return $this->belongsTo(book::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(user::class);
+    // public function user()
+    // {
+    //     return $this->belongsTo(user::class);
+    // }
+
+    public function author(){
+        return $this->belongsTo(user::class, 'user_id');
+    }
+
+    public function userOrder(){
+        return $this->belongsTo(user::class, 'user_order');
     }
 
     public function user_order(){

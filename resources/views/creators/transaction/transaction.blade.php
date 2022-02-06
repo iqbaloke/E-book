@@ -15,6 +15,8 @@
                         <tr>
                             <th>No</th>
                             <th>Order Key</th>
+                            <th>Author book</th>
+                            <th>User Order</th>
                             <th>Book Name</th>
                             <th>payment</th>
                             <th>price</th>
@@ -27,6 +29,8 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $transaction->order_key }}</td>
+                            <td>{{ $transaction->author->name }}</td>
+                            <td>{{ $transaction->userOrder->name }}</td>
                             <td>{{ $transaction->book->title }}</td>
                             <td>{{ $transaction->payment }}</td>
                             <td>{{ $transaction->book->price }}</td>

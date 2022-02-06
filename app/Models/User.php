@@ -105,7 +105,10 @@ class User extends Authenticatable
     }
     public function order()
     {
-        return $this->hasMany(order::class);
+        return $this->hasMany(order::class, 'user_id');
+    }
+    public function author(){
+        return;
     }
     public function purchased()
     {
