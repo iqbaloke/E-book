@@ -95,19 +95,29 @@ class User extends Authenticatable
     {
         return $this->hasOne(sosmed::class);
     }
+
     public function income()
     {
         return $this->hasOne(income::class);
     }
+
     public function widraw()
     {
         return $this->hasMany(widraw::class);
     }
+
     public function order()
     {
         return $this->hasMany(order::class, 'user_id');
     }
-    public function author(){
+
+    public function orderNotification()
+    {
+        return $this->hasMany(order_notification::class, 'user_id');
+    }
+
+    public function author()
+    {
         return;
     }
     public function purchased()

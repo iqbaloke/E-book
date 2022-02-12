@@ -24,6 +24,7 @@ class SingleBooktResource extends JsonResource
             'slug' => $this->slug,
             'price' => $this->price,
             'thumbnail' => $this->takeImage,
+            'book_file' => asset("/storage/" . $this->book_file),
             'file_id' => $this->file,
             'approved' => $this->approved,
             'year' => $this->year,
@@ -35,6 +36,7 @@ class SingleBooktResource extends JsonResource
             'sale' => $this->order->count(),
             'comment' =>$this->comment->count(),
             'book_count' => $this->user->book->count(),
+            'status_purchased' => auth()->user()->purchased()->where('book_id', $this->id)->first() ? 1 : 0,
         ];
     }
 }

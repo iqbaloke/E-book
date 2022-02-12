@@ -3,7 +3,7 @@
 <link href="{{ asset('template') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
             <img src="{{ auth()->user()->takeImage }}" alt="" class="img-fluid shadow">
@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <label for="" class="form_label">Nominal</label>
                             <input type="number" name="nominal" id="nominal"
-                                value="{{ old('nominal', auth()->user()->income->residual_income) }}"
+                                value="{{ old('nominal', auth()->user()->income->residual_income ?? "0") }}"
                                 class="form-control form-control-sm">
                         </div>
                         <div class="form-group">

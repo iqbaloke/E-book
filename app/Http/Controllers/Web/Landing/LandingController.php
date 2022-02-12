@@ -13,6 +13,7 @@ class LandingController extends Controller
 {
     public function landing()
     {
+        $category = category::get();
         $books = book::where('publish', 1)->paginate(40);
         $bookrecomendations = book::withCount('order')
             ->orderBy('order_count', 'desc')
@@ -21,7 +22,7 @@ class LandingController extends Controller
         $authors = User::withCount('order')
             ->orderBy('order_count', 'desc')
             ->paginate(10);
-        return view('landing.welcome', compact('books', 'bookrecomendations', 'authors'));
+        return view('landing.welcome', compact('books', 'bookrecomendations', 'authors', 'category'));
     }
 
     public function landingdetail(book $book)

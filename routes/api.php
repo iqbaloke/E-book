@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Dashboard\Income\IncomeController;
 use App\Http\Controllers\Api\Dashboard\Purchased\PurchasedController;
 use App\Http\Controllers\Api\Dashboard\Transaction\TransactionController;
 use App\Http\Controllers\Api\FileBookController;
+use App\Http\Controllers\Api\OrderNotificationController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,9 @@ Route::middleware('auth:sanctum')->group(function () {
             });
         });
         Route::post('order/{book:slug}/{cart}', [CheckOutController::class, 'order']);
+        Route::post('checkoutnotcart/{book:slug}', [CheckOutController::class, 'checkoutnotcart']);
+        Route::get('orderNotification', [OrderNotificationController::class, 'orderNotification']);
+        Route::patch('updateorderNotification/{order_notification}', [OrderNotificationController::class, 'updateorderNotification']);
 
         Route::prefix('category')->group(function () {
             Route::get('all-category', [CategoryController::class, 'allcaregory']);

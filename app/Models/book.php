@@ -52,8 +52,14 @@ class book extends Model
     {
         return $this->hasMany(order::class);
     }
+
     public function purchased()
     {
         return $this->hasMany(purchased::class);
+    }
+
+    public function orderNotification()
+    {
+        $this->hasMany(order_notification::class);
     }
 }

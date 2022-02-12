@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Book\SingleBooktResource;
 use App\Http\Resources\Cart\CartResource;
+use App\Http\Resources\OrderTransactionResource;
 use App\Models\book;
 use App\Models\cart;
+use App\Models\order_notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +23,14 @@ class cartController extends Controller
     public function checkcart()
     {
         $check_cart = Auth::user()->cart()->count();
+        $check_orderNotification = order_notification::where('order_user', auth()->id())->where('read', 0)
+        ->orWhere('user_id', auth()->id())->where('read_author', 0)
+        ->get();
         return response()->json([
             'user' => Auth::user()->name,
             'cart_count' => $check_cart,
+            'orderNotification' => $check_orderNotification->count(),
+            // 'orderNotification1' => $check_orderNotification,
         ]);
     }
 

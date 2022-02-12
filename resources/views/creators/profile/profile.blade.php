@@ -1,11 +1,11 @@
 @extends('layouts.creator.back')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
 
         <div class="col-md-4">
-            @if (auth()->user()->takeImage == "/storage/")
+            @if (auth()->user()->userdetail->thumbnail == null)
             <img src="{{ asset('images/no-image.png') }}" alt="" class="img-fluid">
             @else
             <img src="{{ auth()->user()->takeImage }}" alt="" class="img-fluid">

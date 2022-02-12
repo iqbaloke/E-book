@@ -33,6 +33,7 @@ class CollectionBooktResource extends JsonResource
             'approved' => $this->approved,
             'reviews' => $this->comment->count(),
             'payment' => $this->payment,
+            'status_purchased' => auth()->user()->purchased()->where('book_id', $this->id)->first() ? 1 : 0,
         ];
     }
 }

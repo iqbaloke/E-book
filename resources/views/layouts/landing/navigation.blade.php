@@ -57,7 +57,7 @@
                         <a class="dropdown-item" href="{{ route('dashboardcreator') }}">dashboard</a>
                         <a class="dropdown-item" href="#">setting</a>
                         @role('creator|super admin|admin')
-                        <a class="dropdown-item" href="#">income</a>
+                        <a class="dropdown-item" href="{{ route('income') }}">income</a>
                         <a class="dropdown-item" href="#">upload</a>
                         @endrole
                         <div class="dropdown-divider"></div>
